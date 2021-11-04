@@ -4,11 +4,15 @@ import java.awt.event.*;
 
 
 public class calculadora extends JFrame implements ActionListener{
-	private JButton boton_num1, boton_num2, boton_num3, boton_num4, boton_num5, boton_num6, boton_num7, boton_num8, boton_num9, boton_num0, boton_suma, boton_resta, boton_multiplicacion, boton_division, boton_resultado;
+	private JButton boton_num1, boton_num2, boton_num3, boton_num4, boton_num5, boton_num6, boton_num7, boton_num8, boton_num9, boton_num0, boton_suma, boton_resta, boton_multiplicacion, boton_division, boton_resultado, boton_limpiar;
 	private JLabel resultado_varoperative;
 	Integer var_calcu_1 = 0, var_calcu_2 = 0, resultado = 0;
 	String var_ver1 = "", var_ver2 = "", var_ver3 = "", var_ver4 = "", var_ver5 = "", var_ver6 = "", var_ver7 = "", var_ver8 ="" , var_ver9 = "", var_ver0 = "", var_resultado = "", var_versuma = "", var_veresta = "", var_vermulti = "", var_vardivision = "";
 	// aqui declare variables de guardado de botones, botones, junto con un label
+	public  static boolean suma = false;
+	public  static boolean resta = false;
+	public  static boolean multiplicacion = false;
+	public  static boolean division = false;
 
 public calculadora(){
 	setLayout(null);
@@ -100,7 +104,12 @@ public calculadora(){
 	 boton_resultado.setBounds(10,180,50,30);
 	 boton_resultado.addActionListener(this);
 	 add(boton_resultado);
-//aqui cree el boton de resultado
+//aquí cree el boton de resultado
+	boton_limpiar = new JButton("C");
+	boton_limpiar.setBounds(70,180,50,30);
+	boton_limpiar.addActionListener(this);
+	add(boton_limpiar);
+//Aquí se crea el boton limpiar
 
 	 resultado_varoperative = new JLabel("");
 	 resultado_varoperative.setBounds(0,95,250,250);
@@ -174,39 +183,65 @@ public calculadora(){
 				var_ver0 = Integer.toString(num0);
 				var_resultado = resultado_varoperative.getText() + var_ver0;
 			}//aqui finaliza el boton_num0
-			resultado_varoperative.setText(var_resultado);
 
+			if (evento.getSource() == boton_limpiar){
+				var_resultado = "";
+				resultado_varoperative.setText("");
+				var_calcu_1 = 0;
+				var_calcu_2 = 0;
+				resultado = 0;
+				suma = false;
+				resta = false;
+				division = false;
+				multiplicacion = false;
+			}
+			resultado_varoperative.setText(var_resultado);
 			if(evento.getSource() == boton_suma){
-		 	var_calcu_1 = Integer.parseInt(var_resultado);
-			 var_calcu_2 = Integer.parseInt(var_resultado);
-			 resultado = var_calcu_1 + var_calcu_2;
-			 var_resultado = Integer.toString(resultado);
-			 resultado_varoperative.setText(var_resultado);
+				suma = true;
+				resultado_varoperative.setText("");
+				var_calcu_1 = Integer.parseInt(var_resultado);
+			}
 			if(evento.getSource() == boton_resta){
-			}//aqui finaliza el boton_suma								
-			var_calcu_1 = Integer.parseInt(var_resultado);
-			var_calcu_2 = Integer.parseInt(var_resultado);
-			resultado = var_calcu_1 + var_calcu_2;
-			var_resultado = Integer.toString(resultado);
-			resultado_varoperative.setText(var_resultado);
-			}//aqui finaliza el boton_resta
+				resta = true;
+				resultado_varoperative.setText("");
+				var_calcu_1 = Integer.parseInt(var_resultado);
+			}
 			if(evento.getSource() == boton_multiplicacion){
-			var_calcu_1 = Integer.parseInt(var_resultado);
-			var_calcu_2 = Integer.parseInt(var_resultado);
-			resultado = var_calcu_1 + var_calcu_2;
-			var_resultado = Integer.toString(resultado);
-			resultado_varoperative.setText(var_resultado);
-			}//aqui finaliza el boton_multiplicacion
+				multiplicacion = true;
+				resultado_varoperative.setText("");
+				var_calcu_1 = Integer.parseInt(var_resultado);
+			}
 			if(evento.getSource() == boton_division){
-			var_calcu_1 = Integer.parseInt(var_resultado);
-			var_calcu_2 = Integer.parseInt(var_resultado);
-			resultado = var_calcu_1 + var_calcu_2;
-			var_resultado = Integer.toString(resultado);
-			resultado_varoperative.setText(var_resultado);
-			}//aqui finaliza el boton_division 
-			resultado_varoperative.setText(var_resultado);
+				division = true;
+				resultado_varoperative.setText("");
+				var_calcu_1 = Integer.parseInt(var_resultado);
+			}
 			if(evento.getSource() == boton_resultado){
-			 
+				resultado_varoperative.setText("");
+				if (suma == true){
+					var_calcu_2 = Integer.parseInt(var_resultado);
+					resultado = var_calcu_1 + var_calcu_2;
+					var_resultado = Integer.toString(resultado);
+					resultado_varoperative.setText(var_resultado);
+				}
+				if (resta == true){
+					var_calcu_2 = Integer.parseInt(var_resultado);
+					resultado = var_calcu_1 - var_calcu_2;
+					var_resultado = Integer.toString(resultado);
+					resultado_varoperative.setText(var_resultado);
+				}
+				if (multiplicacion == true){
+					var_calcu_2 = Integer.parseInt(var_resultado);
+					resultado = var_calcu_1 * var_calcu_2;
+					var_resultado = Integer.toString(resultado);
+					resultado_varoperative.setText(var_resultado);
+				}
+				if (division == true){
+					var_calcu_2 = Integer.parseInt(var_resultado);
+					resultado = var_calcu_1 / var_calcu_2;
+					var_resultado = Integer.toString(resultado);
+					resultado_varoperative.setText(var_resultado);
+				}
 			}
 	}
 		
